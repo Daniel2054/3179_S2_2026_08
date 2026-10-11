@@ -1,0 +1,69 @@
+html,
+body {
+    background-color: #F3FAF9;
+}
+
+.pure-u-1 img {
+    width: 98.70vw;
+}
+
+.pure-u-1-2 img {
+    width: 30vw;
+    height: 30vw;
+}
+
+.pure-u-1-2 {
+    margin-top: 30px;
+    min-height: 30vw;
+}
+
+#text_div {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+h1 {
+    text-align: center;
+    color: #000000;
+    font-size: 40px;
+}
+
+p {
+    color: #000000;
+    font-size: 16px;
+}
+
+#bar_chart {
+    width: 90%;
+    height: 90%
+}
+
+#line_chart { 
+    width : 90%;
+    height: 90%
+}
+
+#heatmap { 
+    width : 95%;
+    height: 450px
+}
+
+#choropleth_map { 
+    width : 95%;
+    height: 450px
+}
+
+#point_map { 
+    width : 95%;
+    height: 450px
+}
+
+#line_bar_chart { 
+    width : 90%;
+    height: 450px
+}
+
+#treemap { 
+    width : 90%;
+    height: 450px
+}
