@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Document</title>
+
+    <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.6/build/pure-min.css" integrity="sha384-Uu6IeWbM+gzNVXJcM9XV3SohHtmWE+3VGi496jvgX1jyvDTXfdK+rfZc8C1Aehk5" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.6/build/grids-responsive-min.css" />
+
+    <link rel="stylesheet" href="layout.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/vega@5.20.2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.1.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.17.0"></script>
+
+    <script src="js/vega_lite_vis.js"></script>
+
+</head>
+
+<body>
+    <div class="pure-g">
+        <div class="pure-u-1">
+            <img src="images/banner.png" />
+        </div>
+        <div class="pure-u-1-2">
+            <div id='text_div'>
+                <h1>Lego Colours</h1>
+                <p> Millions of lego pieces are created each year, with each lego piece having a specific colour.
+                    <br> <br> Prices for most things like hostels, transportation and attractions are fixed and certain. However, prices for a 'budget lunch' or a pint of beer can vary depending on where you go. The index takes all of these factors into
+                    account to calculate the approximate price of a day in each city, including an overnight stay at a backpacker hostel.
+                    <br> <br> Here we review the top five cheapest European cities, as featured on the 2018 Index. Review the complete list of 59 cities at https://www.priceoftravel.com/1979/european- backpacker-index/.
+                </p>
+            </div>
+        </div>
+        <div class="pure-u-1-2">
+            <h1>Quantity of Lego Colours</h1>
+            <div id="bar_chart">
+
+            </div>
+        </div>
+
+        <div class = "pure-u-1-2">
+            <div id = 'text_div'>
+                <h1>Lego Themes</h1>
+                <div id = "heatmap">
+                </div>
+            </div>
+        </div>
+
+        <div class = "pure-u-1-2">
+            <div id = 'text_div'>
+                <h1>Certified Stores</h1>
+                <div id = "choropleth_map">
+                </div>
+            </div>
+        </div>
+
+        <div class = "pure-u-1-2">
+            <div id = 'text_div'>
+                <h1>Victorian Stores</h1>
+                <div id = "point_map">
+                </div>
+            </div>
+        </div>
+
+        <div class = "pure-u-1-2">
+            <div id = 'text_div'>
+                <h1>Revenue</h1>
+                <div id = "line_bar_chart">
+                </div>
+            </div>
+        </div>
+
+        <div class = "pure-u-1-2">
+            <div id = 'text_div'>
+                <h1>Age Groups</h1>
+                <div id = "treemap">
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+
+</html>
