@@ -1,0 +1,143 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "width": "container",
+    "height": "container",
+
+
+    "data" : {
+        "url": "data/LEGO_revenue_2010_2025.csv",
+        "format" : {
+            "type": "csv",
+            "parse": {
+                "year": "number",
+                "revenue_billion_dkk": "number",
+                "increase": "number"
+            }
+        }
+    },
+
+    "encoding": {
+        "x": {
+            "field": "year",
+            "type": "ordinal",
+            "title": "Year",
+            "sort": { "order": "ascending" }
+        },
+        "color": {
+            "field": "Measure",
+            "type": "nominal",
+            "scale": {
+                "domain": ["Revenue in Billion dkk", "Revenue Increase/Decrease"],
+                "range": ["black", "red"]
+            },
+            "legend": {
+                "orient": "top"
+            }
+        }
+    },
+
+    "layer":[
+    {
+    "mark": {
+        "type": "bar",
+        "opacity": 1
+    },
+
+    "transform": [
+    {
+        "calculate": "'Revenue in Billion dkk'",
+        "as": "Measure"
+    }
+    ],
+
+    "encoding": {
+        "y": {
+            "field": "revenue_billion_dkk",
+            "type": "quantitative",
+            "title": "Revenue in Billion dkk",
+            "axis": {
+                "orient": "left"
+            }
+        },
+        
+        "tooltip": [
+            {
+                "field": "revenue_billion_dkk",
+                "type": "quantitative",
+                "title": "Revenue in Billion dkk",
+                "format": ".2f"
+            },
+            {
+                "field": "year",
+                "type": "ordinal",
+                "title": "Year",
+                "format": ".0f"
+            }
+        ]
+
+    }
+    },
+
+    {
+    "mark": {
+        "type": "line",
+        "opacity": 1,
+        "size": 3
+    },
+
+    "transform": [
+    {
+        "calculate": "'Revenue Increase/Decrease'",
+        "as": "Measure"
+    }
+    ],
+
+    "encoding": {
+        "y": {
+            "field": "increase",
+            "type": "quantitative",
+            "title": "Revenue Increase",
+            "scale": {
+                "domain": [-1, 1]
+            },
+            "axis": {
+                "orient": "right",
+                "values": [-1, -0.5, 0, 0.5, 1]
+            }
+        },
+        
+        "tooltip": [
+            {
+                "field": "increase",
+                "type": "quantitative",
+                "title": "Revenue Increase",
+                "format": ".2f"
+            },
+            {
+                "field": "year",
+                "type": "ordinal",
+                "title": "Year",
+                "format": ".0f"
+            }
+        ]
+    }
+    }
+    ],
+
+    "resolve": {
+        "scale": {
+            "y": "independent"
+        }
+    },
+
+    "config": {
+        "background": "#F3FAF9",
+        "axis": {
+            "titleColor": "#000000",
+            "labelColor": "#000000",
+            "labelFont": "sans-serif",
+            "labelFontSize": 15,
+            "titleFontSize": 15
+        }
+    }
+}
