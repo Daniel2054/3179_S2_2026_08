@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Document</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.6/build/pure-min.css" integrity="sha384-Uu6IeWbM+gzNVXJcM9XV3SohHtmWE+3VGi496jvgX1jyvDTXfdK+rfZc8C1Aehk5" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.6/build/grids-responsive-min.css" />
+
+    <link rel="stylesheet" href="layout.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/vega@5.20.2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.1.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.17.0"></script>
+
+    <script src="js/vega_lite_vis.js"></script>
+
+</head>
+
+<body>
+    <div class="pure-g">
+        <div class="pure-u-1">
+            <img src="Images/banner.png" />
+        </div>
+        <div class="pure-u-1 colour-title">
+            <div id='text_div'>
+                <h1>Inside the LEGO World</h1>
+            </div>
+        </div>
+
+        <div class="pure-u-1" id="shared_year_filter">
+            <label for="shared_year">
+                Year: <span id="selected_year">2025</span>
+            </label>
+
+            <input
+                type="range"
+                id="shared_year"
+                min="2010"
+                max="2025"
+                step="1"
+                value="2025"
+                disabled
+            >
+            <div id='text_div'>
+                <p> Use the year slider to interact with the age groups treemap and colours bar chart.
+                </p>
+            </div>
+        </div>
+
+        <div class="pure-u-1-2 center-content">
+            <div id='text_div'>
+                <p> LEGO pieces come in a wide range of colours, from familiar red, yellow and blue to less common options such as glow-in-the-dark. 
+                    These colours give builders the flexibility to create everything from colourful characters to realistic buildings and landscapes.
+                    <br><br> 
+                    From 2010 to 2025, black, white and grey consistently occupy the top three positions for piece counts. 
+                    The rankings of other colour families vary each year, showing changes in their use across the LEGO catalogue. 
+                </p>
+            </div>
+        </div>
+
+        <div class="pure-u-1-2">
+            <h2>Quantity of LEGO Colours</h2>
+            <div id="bar_chart">
+            </div>
+        </div>
+
+
+        <div class = "pure-u-1-2">
+            <div id = 'text_div'>
+                <h2>Age Groups</h2>
+                <div id = "treemap">
+                </div>
+            </div>
+        </div>
+
+        <div class = "pure-u-1-2 center-content">
+            <div id = 'text_div'>
+                <p>
+                    LEGO caters to a wide range of ages, from sets recommended for children aged 1.5 years and above to those labelled 18+.
+                    The treemap shows how sets releases are divided among recommended age groups each year, with larger rectangles representing more sets.
+                    Comparing years shows how LEGO has evolved from 2010-2025.
+                    A noticeable change is that from 2020 onwards the number sets under the age bracket of 18+ dramastically increased. 
+                    Showing that LEGO as a company in recent years have started to target an older customer base.
+                </p>
+            </div>
+        </div>
+
+        <div class = "pure-u-1-2 center-content">
+            <div id = 'text_div'>
+                <p>
+                    LEGO sets come in a wide range of sizes, from fewer than 100 pieces to more than 10,000 pieces. 
+                    Between 2010 and 2025, two sets exceeded 10,000 pieces. 
+                    The largest was the World Map, released in 2021, containing 11,695 pieces. 
+                    Over this period, the median set size increased from 73.5 pieces in 2010 to 219 pieces in 2025, indicating a shift towards larger sets.
+                    The wider spread of set sizes in later years also suggests greater variety in the catalogue, with small builds offered alongside much larger sets.
+                </p>
+            </div>
+        </div>
+
+        <div class = "pure-u-1-2">
+            <div id = 'text_div'>
+                <h2>LEGO Set Sizes Over Time</h2>
+                <div id = "box_plot">
+                </div>
+            </div>
+        </div>
+
+        <div class="pure-u-1 colour-title">
+            <div id='text_div'>
+                <h1>Exploring the Themes</h1>
+            </div>
+        </div>
+
+        <div class = "pure-u-1-2">
+            <div id = 'text_div'>
+                <h2>Lego Themes</h2>
+                <div id = "heatmap">
+                </div>
+            </div>
+        </div>
+
+        <div class = "pure-u-1-2 center-content">
+            <div id = 'text_div'>
+                <p>
+                    LEGO’s catalogue includes both long-running themes and newer additions. 
+                    From 2010 to 2025, City and Star Wars consistently have relatively high numbers of set releases. 
+                    Minecraft shows an increase towards the end of the period, whereas Brickheadz has a noticeable peak in 2018. 
+                    These patterns show how the balance of set releases changes across themes over time.
+                </p>
+            </div>
+
+        </div>
+
+        <div class = "pure-u-1 colour-title">
+            <div id = 'text_div'>
+                <h1>The Life of LEGO Minifigures</h1>
+            </div>
+        </div>
+
+        <div class = "pure-u-1">
+            <div id = 'text_div'>
+                <p> 
+                    Even though LEGO was founded in 1932, minifigurines only started getting produced in 1978.
+                    Since then thousands of Minifigures have been created giving a version of life to the LEGO sets. 
+                    This section explores the number of minifigures each theme has since 2010 as well as, the top 5 rankings for the sets with the most figurines.
+
+                </p>
+            </div>
+        </div>
+
+        <div class = "pure-u-1-2">
+            <div id = 'text_div'>
+                <h2>Quantity of Minifigures per Theme</h2>
+                <div id = "ridgeline_chart">
+                </div>
+            </div>
+        </div>
+
+        <div class = "pure-u-1-2">
+            <div id = 'text_div'>
+                <h2>Minifigures per Theme Top 5</h2>
+                <div id = "bump_chart">
+                </div>
+            </div>
+        </div>
+
+        <div class = "pure-u-1 colour-title">
+            <div id = 'text_div'>
+                <h1>Worldwide LEGO</h1>
+            </div>
+        </div>
+
+        <div class = "pure-u-1">
+            <div id = 'text_div'>
+                <p> 
+                    LEGO is the largest toy manufacturer in the world existing since 1932 in Denmark.
+                    Due to this the LEGO company produces around 60 billion bricks every year. 
+                    Therefore, factories and distribution centers are all over the world providing customers with a high quality product.
+                    This section explores the locations of factories and distribution centers as well as store locations around Australia.
+
+                </p>
+            </div>
+        </div>
+
+        <div class = "pure-u-1-2">
+            <div id = 'text_div'>
+                <h2>Certified Stores</h2>
+                <div id = "choropleth_map">
+                </div>
+            </div>
+        </div>
+
+        <div class = "pure-u-1-2">
+            <div id = 'text_div'>
+                <h2>Victorian Stores</h2>
+                <div id = "point_map">
+                </div>
+            </div>
+        </div>
+
+        <div class = "pure-u-1">
+            <div id = 'text_div'>
+                <h2>Factories and Distribution Centers</h2>
+                <div id = "proportional_symbol_map">
+                </div>
+            </div>
+        </div>
+
+        <div class="pure-u-1 colour-title">
+            <div id='text_div'>
+                <h1>Business of LEGO</h1>
+            </div>
+        </div>
+
+        <div class = "pure-u-1">
+            <div id = 'text_div'>
+                <p>
+                    This section explores how LEGO has grown over the years through revenue.
+                    The currency being explored is Danish Krone since, LEGO is a Danish owned company.
+                    From the bar chart it can been seen that in 2021 there was been a massive spike in revenue.
+                    Multiple reasons have contributed to this such as, LEGO creating products for older customers.
+                    A high of 83.5 billion DKK was achieved in 2025, showing how dominate LEGO is in the toy industry.
+                    <br></br>
+                    Additionally, the yearly revenue of regions is explored seeing the evolution of lego in Americas, Europe, Middle East, Africa, Asia and Pacific.
+                    The visualisation below, shows the revenue from the three regions gathered from the annual report.
+                    Use the slider to explore the data from 2017-2025.
+                </p>
+            </div>
+        </div>
+
+        <div class = "pure-u-1-2">
+            <div id = 'text_div'>
+                <h2>Revenue and Percentage Change</h2>
+                <div id = "line_bar_chart">
+                </div>
+            </div>
+        </div>
+
+        <div class = "pure-u-1-2">
+            <div id = 'text_div'>
+                <h2>Region Revenue</h2>
+                <div id="radial_year_slider"></div>
+                <div id = "radial_bar_chart">
+                </div>
+            </div>
+        </div>
+
+        <div class="pure-u-1 colour-title">
+            <div id='text_div'>
+                <h1>Acknowledgements & References</h1>
+            </div>
+        </div>
+
+        <div class="pure-u-1">
+            <div id='text_div'>
+                <h2>Acknowledgements</h2>
+                <p>
+                    Created by Daniel Anthony Boffa, October 25th 2026. 
+                    FIT3179 Data Visualisation 2, Monash University.
+                    Generative AI (ChatGPT) was used to help write the json files, find sources for information and to check grammar.
+                    All data comes from the sources below and all charts were built by the author.
+                </p>
+                <h2>References</h2>
+                <p>
+                    Rebrickable, LEGO Catalog Database Downloads, https://rebrickable.com/downloads/
+                    <br></br>
+                    Github, jbryer, brickset, https://github.com/jbryer/brickset/blob/main/data-raw/sets/2010.csv
+                    <br></br>
+                    Brickset, Minifigs, https://brickset.com/minifigs/
+                    <br></br>
+                    LEGO, From Production to Play: How the LEGO Group builds and delivers LEGO® products around the world, https://www.lego.com/en-us/aboutus/news/2025/april/from-production-to-play
+                    <br></br>
+                    LEGO, Stores, https://www.lego.com/en-us/stores
+                    <br></br>
+                    LEGO, Annual Report 2025, https://www.lego.com/cdn/cs/aboutus/assets/blte543dd46714c9226/The_LEGO_Group_2025_Annual_Report.pdf
+                    <br></br>
+                    LEGO, Annual Report 2023, https://www.lego.com/cdn/cs/aboutus/assets/blt7e9167f47da173a6/FINAL_Annual_Report_2023.pdf
+                    <br></br>
+                    LEGO, Annual Report 2021, https://www.lego.com/cdn/cs/aboutus/assets/blt248041929be3b572/Annual_Report_2021_ENG.pdf
+                    <br></br>
+                    LEGO, Annual Report 2019, https://www.lego.com/cdn/cs/aboutus/assets/blt55a9aaa4253b2fa5/Annual_Report_2019_ENG.pdf.pdf
+                    <br></br>
+                    LEGO, Annual Report 2018, https://www.lego.com/cdn/cs/aboutus/assets/blt02144956ae00afa1/Annual_Report_2018_ENG.pdf
+                </p>
+            </div>
+        </div>
+
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,177 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "width": "container",
+    "height": "container",
+
+    "data": {
+        "url": "data/LEGO_minifigures_by_year_theme_2010_2025.csv",
+        "format": {
+            "type": "csv",
+            "parse": {
+                "year": "number",
+                "num_of_figs": "number"
+            }
+        }
+    },
+
+    "transform": [
+        {
+            "window": [
+                {
+                    "op": "row_number",
+                    "as": "rank"
+                }
+            ],
+            "sort": [
+                {
+                    "field": "num_of_figs",
+                    "order": "descending"
+                },
+                {
+                    "field": "theme",
+                    "order": "ascending"
+                }
+            ],
+            "groupby": ["year"]
+        },
+        {
+            "filter": "datum.rank <= 5"
+        },
+        {
+            "window": [
+                {
+                    "op": "lag",
+                    "field": "year",
+                    "as": "previous_year"
+                }
+            ],
+            "sort": [
+                {
+                    "field": "year",
+                    "order": "ascending"
+                }
+            ],
+            "groupby": ["theme"]
+        },
+        {
+            "calculate": "!isValid(datum.previous_year) || datum.year - datum.previous_year > 1 ? 1 : 0",
+            "as": "new_segment"
+        },
+        {
+            "window": [
+                {
+                    "op": "sum",
+                    "field": "new_segment",
+                    "as": "segment"
+                }
+            ],
+            "sort": [
+                {
+                    "field": "year",
+                    "order": "ascending"
+                }
+            ],
+            "groupby": ["theme"],
+            "frame": [null, 0]
+        }
+    ],
+
+    "mark": {
+        "type": "line",
+        "strokeWidth": 3,
+        "point": {
+            "filled": true,
+            "size": 80
+        }
+    },
+
+    "encoding": {
+        "x": {
+            "field": "year",
+            "type": "ordinal",
+            "title": "Year",
+            "sort": "ascending",
+            "axis": {
+                "labelAngle": -45
+            }
+        },
+
+        "y": {
+            "field": "rank",
+            "type": "quantitative",
+            "title": "Theme Rank",
+            "scale": {
+                "domain": [1, 5],
+                "reverse": true,
+                "zero": false
+            },
+            "axis": {
+                "values": [1, 2, 3, 4, 5],
+                "format": ".0f"
+            }
+        },
+
+        "color": {
+            "field": "theme",
+            "type": "nominal",
+            "title": "LEGO Theme",
+            "scale": {
+                "scheme": "tableau20"
+            },
+            "legend": {
+                "orient": "bottom",
+                "columns": 3
+            }
+        },
+
+        "detail": {
+            "field": "segment",
+            "type": "nominal"
+        },
+
+        "order": {
+            "field": "year",
+            "type": "quantitative",
+            "sort": "ascending"
+        },
+
+        "tooltip": [
+            {
+                "field": "year",
+                "type": "ordinal",
+                "title": "Year"
+            },
+            {
+                "field": "theme",
+                "type": "nominal",
+                "title": "Theme"
+            },
+            {
+                "field": "rank",
+                "type": "quantitative",
+                "title": "Rank",
+                "format": ".0f"
+            },
+            {
+                "field": "num_of_figs",
+                "type": "quantitative",
+                "title": "Minifigure Designs",
+                "format": ",.0f"
+            }
+        ]
+    },
+
+    "config": {
+        "background": "#F3FAF9",
+        "view": {
+            "stroke": null
+        },
+        "axis": {
+            "titleColor": "#000000",
+            "labelColor": "#000000",
+            "labelFont": "sans-serif",
+            "labelFontSize": 15,
+            "titleFontSize": 15
+        }
+    }
+}

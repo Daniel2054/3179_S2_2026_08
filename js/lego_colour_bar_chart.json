@@ -1,0 +1,86 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "width": "container",
+    "height": "container",
+
+    "params": [
+        {
+            "name": "year_selection",
+            "value": 2025
+        }
+    ],
+
+    "data": {
+        "url": "data/LEGO_colour_families_2010_2025.csv",
+        "format" : {
+            "type": "csv",
+            "parse": {
+                "year": "number",
+                "piece_count": "number"
+            }
+        }
+    },
+    
+    "mark": {
+        "type": "bar",
+        "opacity": 1
+    },
+
+    "transform": [
+        {
+            "filter": "datum.year === year_selection"
+        }
+    ],
+
+    "encoding": {
+        "x": {
+            "field": "piece_count",
+            "type": "quantitative",
+            "title": "Number of Pieces"
+        },
+        "y": {
+            "field": "colour",
+            "type": "nominal",
+            "title": "Brick Colour",
+            "sort": { "encoding": "x", "order": "descending" }
+        },
+        
+        "color": {
+            "field": "hex",
+            "type": "nominal",
+            "scale": null,
+            "legend": null
+        },
+
+        "tooltip": [
+            {
+                "field": "colour",
+                "type": "nominal",
+                "title": "Brick Colour"
+            },
+            {
+                "field": "piece_count",
+                "type": "quantitative",
+                "title": "Number of Pieces",
+                "format": ".0f"
+            },
+            {
+                "field": "year",
+                "type": "ordinal",
+                "title": "Year",
+                "format": ".0f"
+            }
+        ]
+
+    },
+    "config": {
+        "background": "#F3FAF9",
+        "axis": {
+            "titleColor": "#000000",
+            "labelColor": "#000000",
+            "labelFont": "sans-serif",
+            "labelFontSize": 15,
+            "titleFontSize": 15
+        }
+    }
+}

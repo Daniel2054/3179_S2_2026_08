@@ -1,0 +1,146 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "width": "container",
+    "height": "container",
+
+
+    "params": [
+        {
+            "name": "year_selection",
+            "value": 2025,
+            "bind": {
+                "input": "range",
+                "min": 2017,
+                "max": 2025,
+                "step": 1,
+                "name": "Year: "
+            }
+        }
+    ],
+
+    "data": {
+        "url": "data/LEGO_region_revenue.csv",
+        "format": {
+            "type": "csv",
+            "parse": {
+                "year": "number",
+                "sales": "number"
+            }
+        }
+    },
+
+    "transform": [
+        {
+            "filter": "datum.year === year_selection"
+        }
+    ],
+
+    "encoding": {
+        "theta": {
+            "field": "sales",
+            "type": "quantitative",
+            "scale": {
+                "domain": [0, 40],
+                "range": [0, 5]
+            }
+        },
+
+        "theta2": {
+            "value": 0
+        },
+
+        "color": {
+            "field": "region",
+            "type": "nominal",
+            "title": "Region",
+            "scale": {
+                "domain": [
+                    "Americas",
+                    "Europe, Middle East & Africa",
+                    "Asia & Pacific"
+                ],
+                "range": [
+                    "#3182bd",
+                    "orange",
+                    "purple"
+                ]
+            },
+            "legend": {
+                "orient": "bottom",
+                "labelLimit": 300
+            }
+        },
+        "tooltip": [
+            {
+                "field": "year",
+                "type": "ordinal",
+                "title": "Year"
+            },
+            {
+                "field": "region",
+                "type": "nominal",
+                "title": "Region"
+            },
+            {
+                "field": "sales",
+                "type": "quantitative",
+                "title": "Sales (billion DKK)",
+                "format": ".3f"
+            }
+        ]
+    },
+
+    "layer": [
+        {
+            "transform": [
+                {
+                    "filter": "datum.region === 'Americas'"
+                }
+            ],
+            "mark": {
+                "type": "arc",
+                "innerRadius": 155,
+                "outerRadius": 175,
+                "cornerRadius": 3
+            }
+        },
+        {
+            "transform": [
+                {
+                    "filter": "datum.region === 'Europe, Middle East & Africa'"
+                }
+            ],
+            "mark": {
+                "type": "arc",
+                "innerRadius": 125,
+                "outerRadius": 145,
+                "cornerRadius": 3
+            }
+        },
+        {
+            "transform": [
+                {
+                    "filter": "datum.region === 'Asia & Pacific'"
+                }
+            ],
+            "mark": {
+                "type": "arc",
+                "innerRadius": 95,
+                "outerRadius": 115,
+                "cornerRadius": 3
+            }
+        }
+    ],
+
+    "config": {
+        "background": "#F3FAF9",
+        "view": {
+            "stroke": null
+        },
+        "legend": {
+            "labelFont": "sans-serif",
+            "labelFontSize": 14,
+            "titleFontSize": 15
+        }
+    }
+}

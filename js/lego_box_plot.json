@@ -1,0 +1,77 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "width": "container",
+    "height": "container",
+
+    "data": {
+        "url": "data/LEGO_sets_age_theme_minifig_2010_2025.csv",
+        "format": {
+            "type": "csv",
+            "parse": {
+                "year": "number",
+                "pieces": "number"
+            }
+        }
+    },
+
+    "transform": [
+        {
+            "filter": "isValid(datum.pieces) && datum.pieces > 0"
+        }
+    ],
+
+    "mark": {
+        "type": "boxplot",
+        "extent": 1.5,
+        "size": 20,
+        "color": "#C93225",
+        "median": {
+            "color": "black"
+        },
+        "outliers": {
+            "size": 15,
+            "opacity": 0.4
+        }
+    },
+
+    "encoding": {
+        "x": {
+            "field": "year",
+            "type": "ordinal",
+            "title": "Release Year",
+            "sort": "ascending",
+            "axis": {
+                "labelAngle": -45
+            }
+        },
+
+        "y": {
+            "field": "pieces",
+            "type": "quantitative",
+            "title": "Number of Pieces per Set",
+            "scale": {
+                "zero": true
+            },
+            "axis": {
+                "format": ",.0f"
+            }
+        }
+    },
+
+    "config": {
+        "background": "#F3FAF9",
+
+        "view": {
+            "stroke": null
+        },
+
+        "axis": {
+            "titleColor": "#000000",
+            "labelColor": "#000000",
+            "labelFont": "sans-serif",
+            "titleFont": "sans-serif",
+            "labelFontSize": 15,
+            "titleFontSize": 15
+        }
+    }
+}

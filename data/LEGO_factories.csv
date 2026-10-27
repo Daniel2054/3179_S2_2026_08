@@ -1,0 +1,14 @@
+﻿name,latitude,longitude,supplies,function ,country_state,facility_type
+Billund,55.73,9.12,"Europe, Middle East & Africa",Moulding,Denmark,Factory
+Klando,50.135,14.4,"Europe, Middle East & Africa",Processing & Packaging,Czechia,Factory
+Jirny,50.135,14.4,N/A,Managing ,Czechia,Distribution Center
+Nyiregyhaza,47.95,21.72,"Europe, Middle East & Africa","Moulding, Processing & Packaging ",Hungary,Factory
+Tessenderlo,51.07,5.09,N/A,Managing,Belgium,Distribution Center
+Monterrey,25.95,-100.17,The Americas,"Moulding, Processing & Packaging ",Mexico,Factory
+Texas,32.76,-97.33,N/A,Managing,USA,Distribution Center
+Virginia,37.3,-77.4,The Americas,"Moulding, Processing & Packaging ",USA,Factory
+Virginia,37.3,-77.4,N/A,Managing,USA,Distribution Center
+Shanghai,30.99,121.11,N/A,Managing,China,Distribution Center
+Jiaxing,30.99,121.11,China & Asia Pacific,"Moulding, Processing & Packaging ",China,Factory
+Ho Chi Minh City,11.005,106.81,Asia Pacific,"Moulding, Processing & Packaging ",Vietnam,Factory
+Dong Nai,11.005,106.81,N/A,Managing,Vietnam,Distribution Center

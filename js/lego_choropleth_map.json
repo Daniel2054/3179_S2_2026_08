@@ -1,0 +1,83 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "width": "container",
+    "height": "container",
+
+    "data": {
+        "url": "js/states.geojson",
+        "format": {
+            "type": "json",
+            "property": "features"
+        }
+    },
+
+
+    "transform": [
+        {
+            "lookup": "properties.STATE_NAME",
+            "from": {
+                "data": {
+                    "url": "data/LEGO_location_certified_stores.csv"
+                },
+                "key": "state",
+                "fields": ["store_count"]
+            }
+        }
+    ],
+
+    "description": "Makes the map flate",
+
+    "projection": {
+        "type": "mercator"
+    },
+
+    "mark": {
+        "type": "geoshape",
+        "stroke": "black",
+        "strokeWidth": 1
+    },
+
+    "encoding": {
+        "color": {
+            "field": "store_count",
+            "type": "quantitative",
+            "title": "Number of Stores",
+            "scale": {
+                "scheme": "yelloworangered",
+                "domainMin": 0
+            },
+            "legend": {
+                "format": ".0f",
+                 "orient": "top"
+            }
+        },
+
+        "tooltip": [
+            {
+                "field": "properties.STATE_NAME",
+                "type": "nominal",
+                "title": "State / Territory"
+            },
+            {
+                "field": "store_count",
+                "type": "quantitative",
+                "title": "LEGO Stores",
+                "format": ".0f"
+            }
+        ]
+    },
+    
+    "config": {
+        "background": "#F3FAF9",
+        "axis": {
+            "titleColor": "#000000",
+            "labelColor": "#000000",
+            "labelFont": "sans-serif",
+            "labelFontSize": 15,
+            "titleFontSize": 15
+        },
+        "view": {
+            "stroke": null
+        }
+    }
+}

@@ -1,0 +1,85 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "width": "container",
+    "height": "container",
+
+
+    "data": {
+        "url": "data/LEGO_theme_year_heatmap_data.csv",
+        "format" : {
+            "type": "csv",
+            "parse": {
+                "Year": "number",
+                "Set Count": "number"    
+            }
+        }
+    },
+    
+
+    "mark": {
+        "type": "rect",
+        "stroke": "black", 
+        "strokeWidth" : 1
+    },
+
+    "encoding": {
+        "x": {
+            "field": "Year",
+            "type": "ordinal",
+            "title": "Release Year",
+            "sort": "ascending"
+        },
+        "y": {
+            "field": "Theme",
+            "type": "nominal",
+            "title": "Lego Theme"
+        },
+        
+        "color": {
+            "field": "Set count",
+            "type": "quantitative",
+            "title": "Number of Sets",
+            "scale": {
+                "scheme": "greenblue",
+                "domainMin": 0
+            },
+            "legend": {
+                "type": "gradient",
+                "orient": "top",
+                "format": ".0f",
+                "gradientLength": 200
+            }
+        },
+
+        "tooltip": [
+            {
+                "field": "Theme",
+                "type": "nominal",
+                "title": "Lego Theme"
+            },
+            {
+                "field": "Set count",
+                "type": "quantitative",
+                "title": "Number of Sets",
+                "format": ".0f"
+            },
+            {
+                "field": "Year",
+                "type": "ordinal",
+                "title": "Year",
+                "format": ".0f"
+            }
+        ]
+
+    },
+    "config": {
+        "background": "#F3FAF9",
+        "axis": {
+            "titleColor": "#000000",
+            "labelColor": "#000000",
+            "labelFont": "sans-serif",
+            "labelFontSize": 15,
+            "titleFontSize": 15
+        }
+    }
+}

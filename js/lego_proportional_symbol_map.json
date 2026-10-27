@@ -1,0 +1,153 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "width": "container",
+    "height": 450,
+
+    "projection": {
+        "type": "equalEarth"
+    },
+
+    "layer": [
+        {
+            "data": {
+                "url": "js/world_countries.geojson",
+                "format": {
+                    "type": "json",
+                    "property": "features"
+                }
+            },
+
+            "mark": {
+                "type": "geoshape",
+                "fill": "lightgrey",
+                "stroke": "black",
+                "strokeWidth": 0.5
+            }
+        },
+
+        {
+            "data": {
+                "url": "data/LEGO_factories.csv",
+                "format": {
+                    "type": "csv",
+                    "parse": {
+                        "latitude": "number",
+                        "longitude": "number"
+                    }
+                }
+            },
+
+            "transform": [
+                {
+                    "calculate": "datum.country_state === 'USA' ? datum.name + ', USA' : datum.country_state",
+                    "as": "map_location"
+                },
+                {
+                    "calculate": "datum.facility_type === 'Factory' ? 1 : 0",
+                    "as": "factory_flag"
+                },
+                {
+                    "calculate": "datum.facility_type === 'Distribution Center' ? 1 : 0",
+                    "as": "distribution_flag"
+                },
+                {
+                    "aggregate": [
+                        {
+                            "op": "count",
+                            "as": "facility_count"
+                        },
+                        {
+                            "op": "sum",
+                            "field": "factory_flag",
+                            "as": "factories"
+                        },
+                        {
+                            "op": "sum",
+                            "field": "distribution_flag",
+                            "as": "distribution_centres"
+                        }
+                    ],
+                    "groupby": [
+                        "map_location",
+                        "latitude",
+                        "longitude"
+                    ]
+                }
+            ],
+
+            "mark": {
+                "type": "circle",
+                "color": "red",
+                "opacity": 0.7,
+                "stroke": "#white",
+                "strokeWidth": 1
+            },
+
+            "encoding": {
+                "longitude": {
+                    "field": "longitude",
+                    "type": "quantitative"
+                },
+
+                "latitude": {
+                    "field": "latitude",
+                    "type": "quantitative"
+                },
+
+                "size": {
+                    "field": "facility_count",
+                    "type": "quantitative",
+                    "title": "Facilities per Country / State",
+                    "scale": {
+                        "type": "linear",
+                        "domain": [0, 2],
+                        "range": [0, 900]
+                    },
+                    "legend": {
+                        "values": [1, 2],
+                        "format": ".0f",
+                        "orient": "bottom"
+                    }
+                },
+
+                "tooltip": [
+                    {
+                        "field": "map_location",
+                        "type": "nominal",
+                        "title": "Country / State"
+                    },
+                    {
+                        "field": "facility_count",
+                        "type": "quantitative",
+                        "title": "Total Facilities",
+                        "format": ".0f"
+                    },
+                    {
+                        "field": "factories",
+                        "type": "quantitative",
+                        "title": "Factories",
+                        "format": ".0f"
+                    },
+                    {
+                        "field": "distribution_centres",
+                        "type": "quantitative",
+                        "title": "Distribution Centres",
+                        "format": ".0f"
+                    }
+                ]
+            }
+        }
+    ],
+
+    "config": {
+        "background": "#F3FAF9",
+        "view": {
+            "stroke": null
+        },
+        "legend": {
+            "labelFont": "sans-serif",
+            "labelFontSize": 12,
+            "titleFontSize": 13
+        }
+    }
+}

@@ -1,0 +1,170 @@
+{
+    "$schema": "https://vega.github.io/schema/vega/v5.json",
+    "width": 525,
+    "height": 450,
+    "padding": 10,
+
+    "signals": [
+        {
+            "name": "year_selection",
+            "value": 2025
+        }
+    ],
+
+    "data": [
+        {
+            "name": "ages",
+            "url": "data/LEGO_age_groups.csv",
+            "format": {
+                "type": "csv",
+                "parse": {
+                    "year": "number",
+                    "count": "number"
+                }
+            },
+            "transform": [
+                {
+                    "type": "filter",
+                    "expr": "datum.year === year_selection && datum.count > 0"
+                },
+                {
+                    "type": "formula",
+                    "expr": "trim(datum.age_group)",
+                    "as": "age_group"
+                },
+                {
+                    "type": "formula",
+                    "expr": "'root'",
+                    "as": "parent"
+                }
+            ]
+        },
+
+        {
+            "name": "tree_root",
+            "values": [
+                {
+                    "age_group": "root",
+                    "parent": null,
+                    "count": 0
+                }
+            ]
+        },
+
+        {
+            "name": "tree",
+            "source": ["tree_root", "ages"],
+            "transform": [
+                {
+                    "type": "stratify",
+                    "key": "age_group",
+                    "parentKey": "parent"
+                },
+                {
+                    "type": "treemap",
+                    "field": "count",
+                    "method": "squarify",
+                    "size": [
+                        {"signal": "width"},
+                        {"signal": "height"}
+                    ]
+                }
+            ]
+        },
+
+        {
+            "name": "cells",
+            "source": "tree",
+            "transform": [
+                {
+                    "type": "filter",
+                    "expr": "datum.depth === 1"
+                }
+            ]
+        }
+    ],
+
+    "scales": [
+        {
+            "name": "colour",
+            "type": "ordinal",
+            "domain": [
+                "1.5+", "4+", "6+", "9+", "13+", "18+", "Unknown"
+            ],
+            "range": [
+                "red",
+                "blue",
+                "green",
+                "yellow",
+                "purple",
+                "orange",
+                "grey"
+            ]
+        }
+    ],
+
+    "legends": [
+        {
+            "fill": "colour",
+            "title": "Age Group",
+            "orient": "bottom",
+            "direction": "horizontal"
+        }
+    ],
+
+    "marks": [
+        {
+            "type": "rect",
+            "from": {
+                "data": "cells"
+            },
+            "encode": {
+                "update": {
+                    "x": {"field": "x0"},
+                    "y": {"field": "y0"},
+                    "x2": {"field": "x1"},
+                    "y2": {"field": "y1"},
+                    "fill": {
+                        "scale": "colour",
+                        "field": "age_group"
+                    },
+                    "stroke": {"value": "black"},
+                    "strokeWidth": {"value": 1},
+                    "tooltip": {
+                        "signal": "{'Age Group': datum.age_group, 'Number of Sets': datum.count, 'Year': year_selection}"
+                    }
+
+                }
+            }
+        },
+        {
+            "type": "text",
+            "from": {"data": "cells"},
+            "interactive": false,
+            "encode": {
+                "update": {
+                    "x": {
+                        "signal": "(datum.x0 + datum.x1) / 2"
+                    },
+                    "y": {
+                        "signal": "(datum.y0 + datum.y1) / 2"
+                    },
+                    "text": {
+                        "signal": "datum.age_group"
+                    },
+                    "align": {"value": "center"},
+                    "baseline": {"value": "middle"},
+                    "font": {"value": "sans-serif"},
+                    "fontSize": {"value": 15},
+                    "fill": {"value": "black"},
+                    "limit": {
+                        "signal": "max(0, datum.x1 - datum.x0 - 10)"
+                    },
+                    "opacity": {
+                        "signal": "datum.x1 - datum.x0 > 65 && datum.y1 - datum.y0 > 25 ? 1 : 0"
+                    }
+                }
+            }
+        }
+    ]
+}
